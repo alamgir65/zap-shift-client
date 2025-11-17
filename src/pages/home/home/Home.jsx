@@ -4,6 +4,7 @@ import HowItWorks from '../HowItWorks';
 import Services from '../services/Services';
 import Brands from '../brands/Brands';
 import Features from '../features/Features';
+import CustomerSatisfaction from '../customer-satisfaction/CustomerSatisfaction';
 
 const Home = () => {
     return (
@@ -19,6 +20,9 @@ const Home = () => {
             </section>
             <section className='px-8 sm:px-16 my-10'>
                 <Features></Features>
+            </section>
+            <section className="px-8 sm:px-16 my-10">
+                <CustomerSatisfaction></CustomerSatisfaction>
             </section>
         </div>
     );
