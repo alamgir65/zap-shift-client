@@ -31,22 +31,30 @@ const Banner = () => {
                     </div>
                 </div>
             </div>
-            {/* <div>
+            <div>
                 <img src={bannerImg2} alt="Banner 2" />
                 <div className="banner-content">
-                    <h2>Summer Sale</h2>
-                    <p>Up to 50% off on selected items</p>
-                    <button className="banner-btn">View Offers</button>
+                    <p>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>
+                    <div className='flex gap-5'>
+                        <div className='flex items-center'>
+                            <button className="banner-btn btn bg-primary rounded-4xl px-8">Track Your Parcel</button> <FaSquareArrowUpRight className='text-3xl'/>
+                        </div>
+                        <button className="banner-btn btn text-[14px] btn-outline bg-white">Be A Rider</button>
+                    </div>
                 </div>
             </div>
             <div>
                 <img src={bannerImg3} alt="Banner 3" />
                 <div className="banner-content">
-                    <h2>New Arrivals</h2>
-                    <p>Check out our latest collection</p>
-                    <button className="banner-btn">Explore</button>
+                    <p>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>
+                    <div className='flex gap-5'>
+                        <div className='flex items-center'>
+                            <button className="banner-btn btn bg-primary rounded-4xl px-8">Track Your Parcel</button> <FaSquareArrowUpRight className='text-3xl'/>
+                        </div>
+                        <button className="banner-btn btn text-[14px] btn-outline bg-white">Be A Rider</button>
+                    </div>
                 </div>
-            </div> */}
+            </div>
         </Carousel>
     );
 };
