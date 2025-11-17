@@ -1,0 +1,15 @@
+.banner-content {
+    position: absolute;
+    top: 81%;
+    left: 31%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    border-radius: 10px;
+    max-width: 600px;
+}
+
+.banner-content p {
+    font-size: 16px;
+    text-align: start;
+    margin-bottom: 10px;
+}
