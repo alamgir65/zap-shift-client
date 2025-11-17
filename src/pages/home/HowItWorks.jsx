@@ -3,7 +3,7 @@ import icon from '../../assets/bookingIcon.png';
 
 const HowItWorks = () => {
     return (
-        <div className='px-[5%] my-10'>
+        <div className='px-[5%] my-15'>
             <h1 className='text-3xl font-bold'>How it Works</h1>
             <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5'>
                 <div className='p-5 rounded-lg bg-white'>
