@@ -1,7 +1,7 @@
 import React, { use } from 'react';
 import img from '../../../assets/customer-top.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
 import Review from './Review';
 
 const Reviews = ({ reviewPromise }) => {
@@ -16,21 +16,29 @@ const Reviews = ({ reviewPromise }) => {
                 <h3 className="text-3xl font-bold text-secondary mb-2">What our customers are sayings</h3>
                 <p className='text-sm opacity-80'>Enhance posture, mobility, and well-being effortlessly with Posture Pro. Achieve proper alignment, reduce pain, and strengthen your body with ease!</p>
             </div>
-            <div>
+            <div className='my-15'>
                 <Swiper
+                    loop={true}
                     effect={'coverflow'}
                     grabCursor={true}
                     centeredSlides={true}
+                    spaceBetween={30}
                     slidesPerView={3}
                     coverflowEffect={{
                         rotate: 50,
                         stretch: 0,
-                        depth: 100,
+                        depth: 200,
                         modifier: 1,
+                        scale: 0.9,
                         slideShadows: true,
+                        opacity: 20
+                    }}
+                    autoplay={{
+                        delay : 2000,
+                        disbleOnInteraction: false
                     }}
                     pagination={true}
-                    modules={[EffectCoverflow, Pagination]}
+                    modules={[EffectCoverflow, Pagination, Autoplay]}
                     className="mySwiper"
                 >
                     {
