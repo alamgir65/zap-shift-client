@@ -1,13 +1,13 @@
 import React from 'react';
 import Logo from '../../../components/logo/Logo';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 
 const Navbar = () => {
 
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink> </li>
         <li><NavLink to={'/'}>Services</NavLink> </li>
-        <li><NavLink to={'/'}>Coverage</NavLink> </li>
+        <li><NavLink to={'/coverage'}>Coverage</NavLink> </li>
         <li><NavLink to={'/'}>About Us</NavLink> </li>
         <li><NavLink to={'/'}>Pricing</NavLink> </li>
         <li><NavLink to={'/'}>Blog</NavLink> </li>
@@ -27,9 +27,9 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">
+                <Link to={'/'}>
                     <Logo></Logo>
-                </a>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
