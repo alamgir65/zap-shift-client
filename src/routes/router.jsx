@@ -5,6 +5,7 @@ import Coverage from "../pages/coverage/Coverage";
 import AuthLayouts from "../layouts/AuthLayouts";
 import Login from "../pages/auth/login/Login";
 import Register from "../pages/auth/register/Register";
+import Forget from "../pages/auth/forget/Forget";
 
 export const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 Component: Register
+            },
+            {
+                path: 'forget',
+                Component: Forget
             }
         ]
     }
