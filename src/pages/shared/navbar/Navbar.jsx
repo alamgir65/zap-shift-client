@@ -13,8 +13,8 @@ const Navbar = () => {
         <li><NavLink to={'/coverage'}>Coverage</NavLink> </li>
         <li><NavLink to={'/'}>About Us</NavLink> </li>
         <li><NavLink to={'/'}>Pricing</NavLink> </li>
-        <li><NavLink to={'/'}>Blog</NavLink> </li>
-        <li><NavLink to={'/'}>Contact</NavLink> </li>
+        <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink> </li>
+        <li><NavLink to={'/send-parcel'}>Send Parcel</NavLink> </li>
     </>
 
     const logoutHandler = () => {

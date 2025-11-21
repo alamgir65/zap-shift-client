@@ -8,6 +8,7 @@ import Register from "../pages/auth/register/Register";
 import Forget from "../pages/auth/forget/Forget";
 import PrivateRoutes from "./PrivateRoutes";
 import RiderForm from "../pages/rider/RiderForm";
+import ParcelForm from "../pages/Parcel/ParcelForm";
 
 export const router = createBrowserRouter([
     {
@@ -25,7 +26,13 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'be-a-rider',
+                loader: () => fetch('/branches.json').then(res => res.json()),
                 element: <RiderForm></RiderForm>
+            },
+            {
+                path: 'send-parcel',
+                loader: () => fetch('/branches.json').then(res => res.json()),
+                element: <ParcelForm></ParcelForm>
             }
         ]
     },
