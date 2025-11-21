@@ -1,12 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const {signInUser, signInGoogle} = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log('Location from Login page', location);
 
     const submitHandler = (data) => {
         const email = data.email;
@@ -16,6 +19,7 @@ const Login = () => {
             .then(res => {
                 console.log(res.user);
                 console.log('login done');
+                navigate(location?.state || '/');
             })
             .then(err => {
                 console.log(err);
@@ -26,6 +30,7 @@ const Login = () => {
         signInGoogle()
             .then(res => {
                 console.log(res.user);
+                navigate(location?.state || '/');
             })
             .catch(err => {
                 console.log(err);
@@ -51,7 +56,7 @@ const Login = () => {
                         errors.password?.type === 'required' && <p className='text-[12px] text-red-500'>Password must min 6 length.</p>
                     }
                     <button className="btn btn-primary text-black mt-4">Login</button>
-                    <p className='text-sm'><span className='opacity-80 my-3'>Don't have any Account?</span> <Link to={'/register'} className='text-primary font-bold'>Login</Link></p>
+                    <p className='text-sm'><span className='opacity-80 my-3'>Don't have any Account?</span> <Link state={location.state} to={'/register'} className='text-primary font-bold'>Register</Link></p>
                 </fieldset>
             </form>
             {/* Google */}

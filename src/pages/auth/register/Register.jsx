@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase/firebase.init';
@@ -10,6 +10,9 @@ const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const {createUser, signInUser, signInGoogle, profileUpdate} = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log('Location from Register ', location);
 
     const submitHandler = (data) => {
         const email = data.email;
@@ -18,7 +21,7 @@ const Register = () => {
         const name = data.name;
         console.log(email,password,photo);
         
-        createUserWithEmailAndPassword(auth,email,password)
+        createUser(email,password)
             .then(res => {
                 console.log(res.user);
 
@@ -36,6 +39,7 @@ const Register = () => {
                         profileUpdate(profile)
                             .then(() =>{
                                 console.log('Profile updated successfully');
+                                navigate(location?.state || '/');
                             })
                             .catch(err => console.log(err))
                     })
@@ -50,6 +54,7 @@ const Register = () => {
         signInGoogle()
             .then(res => {
                 console.log(res.user);
+                navigate(location?.state || '/');
             })
             .catch(err => {
                 console.log(err);
@@ -89,8 +94,8 @@ const Register = () => {
                     {
                         errors.password?.type === 'minLength' && <p className='text-[12px] text-red-500'>Password must min 6 length.</p>
                     }
-                    <button className="btn btn-primary text-black mt-4">Register</button>
-                    <p className='text-sm'><span className='opacity-80 my-3'>Already have an Account?</span> <Link to={'/login'} className='text-primary font-bold'>Login</Link></p>
+                    <button type='submit' className="btn btn-primary text-black mt-4">Register</button>
+                    <p className='text-sm'><span className='opacity-80 my-3'>Already have an Account?</span> <Link state={location.state} to={'/login'} className='text-primary font-bold'>Login</Link></p>
                 </fieldset>
             </form>
             {/* Google */}

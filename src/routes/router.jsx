@@ -6,6 +6,8 @@ import AuthLayouts from "../layouts/AuthLayouts";
 import Login from "../pages/auth/login/Login";
 import Register from "../pages/auth/register/Register";
 import Forget from "../pages/auth/forget/Forget";
+import PrivateRoutes from "./PrivateRoutes";
+import RiderForm from "../pages/rider/RiderForm";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +22,10 @@ export const router = createBrowserRouter([
                 path: '/coverage',
                 loader: ()=> fetch('/branches.json').then(res => res.json()),
                 Component: Coverage
+            },
+            {
+                path: 'be-a-rider',
+                element: <RiderForm></RiderForm>
             }
         ]
     },
