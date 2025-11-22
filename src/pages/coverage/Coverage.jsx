@@ -23,14 +23,14 @@ const Coverage = () => {
 
     return (
         <>
-            <section className='mx-8 sm:mx-16 my-10 p-10 rounded-xl bg-white'>
+            <section className='mx-8 sm:mx-16 my-10 p-10 rounded-xl bg-white pb-20'>
                 <div className='mb-15'>
                     <h3 className="text-3xl font-bold text-secondary mb-4">We are available in 64 district's.</h3>
                     <form onSubmit={searchHandler}>
                         <div className="join">
                             <div>
-                                <label className="input validator join-item">
-                                    <input type="text" name='location' placeholder="Search district location.." required />
+                                <label className="input validator join-item bg-white">
+                                    <input type="text" className='bg-white' name='location' placeholder="Search district location.." required />
                                 </label>
                                 <div className="validator-hint hidden">Search district location..</div>
                             </div>

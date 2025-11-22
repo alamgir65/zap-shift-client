@@ -1,14 +1,19 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAuth from '../../hooks/useAuth';
 
 const ParcelForm = () => {
     const data = useLoaderData();
     const { register, handleSubmit, control, formState: { errors } } = useForm();
     // const districts = data.map(d => d.district);
-    const regions = [...new Set(data.map(d=>d.region))];
-    const sendertRegion = useWatch({control, name: 'sender_region'});
-    const receiverRegion =useWatch({control, name: 'receiver_region'});
+    const regions = [...new Set(data.map(d => d.region))];
+    const sendertRegion = useWatch({ control, name: 'sender_region' });
+    const receiverRegion = useWatch({ control, name: 'receiver_region' });
+    const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
 
     const districtsByRegion = (region) => {
         const filteredData = data.filter(d => d.region === region);
@@ -20,6 +25,50 @@ const ParcelForm = () => {
 
     const submitHandler = (data) => {
         console.log(data);
+        const isSameDistrict = data.sender_district === data.receiver_district;
+        const isDocument = data.parcel_type == 'document';
+        const weight = parseFloat(data.weight);
+
+        let cost = 0;
+        if (isDocument) {
+            cost = isSameDistrict ? 60 : 80;
+        }
+        else {
+            if (weight <= 3) {
+                cost = isSameDistrict ? 110 : 150;
+            }
+            else {
+                cost = isSameDistrict ? 110 : 150;
+                const extraCost = (weight - 3) * 40 + (isSameDistrict ? 0 : 40);
+                cost += extraCost;
+            }
+        }
+        
+        Swal.fire({
+            title: "Agree with the cost?",
+            text: `You have to pay ${cost} taka for this parcel!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "I agree"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Your parcel processing to deliver.",
+                    icon: "success"
+                });
+
+                axiosSecure.post('/parcels',{
+                    data
+                })
+                    .then(res => {
+                        console.log('after saving data in database ' ,res);
+                    })
+
+            }
+        });
     }
     return (
         <>
@@ -33,15 +82,28 @@ const ParcelForm = () => {
                         <fieldset className="fieldset w-full">
 
                             <div>
-                                <label className='label'>
-                                    <input {...register('parcel_type')} value={'document'} type="radio" name="radio-5" className="radio radio-secondary" defaultChecked />
+                                <label className="label">
+                                    <input
+                                        {...register('parcel_type')}
+                                        type="radio"
+                                        value="document"
+                                        className="radio radio-secondary"
+                                        defaultChecked
+                                    />
                                     Document
                                 </label>
-                                <label className='label ml-8'>
-                                    <input {...register('parcel_type')} value={'non_document'} type="radio" name="radio-5" className="radio radio-secondary" defaultChecked />
+
+                                <label className="label ml-8">
+                                    <input
+                                        {...register('parcel_type')}
+                                        type="radio"
+                                        value="non_document"
+                                        className="radio radio-secondary"
+                                    />
                                     Non-Document
                                 </label>
                             </div>
+
 
                             <div className='flex gap-4'>
                                 <div className='flex-1'>
@@ -129,7 +191,7 @@ const ParcelForm = () => {
                                     {/* District  */}
                                     <label className="label font-bold">Select Sender District</label>
 
-                                    <select type="text" {...register("district", { required: true })} className="input bg-white w-full" placeholder="District">
+                                    <select type="text" {...register("sender_district", { required: true })} className="input bg-white w-full" placeholder="District">
                                         {/* <option className='opacity-50'>Select District</option> */}
                                         {
                                             districtsByRegion(sendertRegion).map((district, index) => <option value={district} key={index}>{district}</option>)
@@ -140,7 +202,7 @@ const ParcelForm = () => {
                                     {/* District  */}
                                     <label className="label font-bold">Select Receiver District</label>
 
-                                    <select type="text" {...register("district", { required: true })} className="input bg-white w-full" placeholder="District">
+                                    <select type="text" {...register("receiver_district", { required: true })} className="input bg-white w-full" placeholder="District">
                                         <option className='opacity-70'>Select District</option>
                                         {
                                             districtsByRegion(receiverRegion).map((district, index) => <option value={district} key={index}>{district}</option>)
@@ -149,7 +211,7 @@ const ParcelForm = () => {
                                 </div>
                             </div>
 
-                             <div className='flex gap-4'>
+                            <div className='flex gap-4'>
                                 <div className='flex-1'>
                                     {/*Sender Name  */}
                                     <label className="label font-bold">Pick up Instructions</label>
