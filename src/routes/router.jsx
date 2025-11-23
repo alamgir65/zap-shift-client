@@ -17,6 +17,9 @@ import Success from "../pages/about/Success";
 import TeamsOthers from "../pages/about/TeamsOthers";
 import DashboardLayouts from "../layouts/DashboardLayouts";
 import MyParcels from "../pages/dashboard/my-parcels/MyParcels";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import Payment from "../pages/dashboard/Payment/Payment";
+
 
 export const router = createBrowserRouter([
     {
@@ -94,7 +97,12 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'my-parcels',
-                Component: MyParcels
+                element: <PrivateRoutes> <MyParcels></MyParcels> </PrivateRoutes>
+            },
+            {
+                path: 'payment/:id',
+                loader: ({params}) => fetch(`http://localhost:3000/parcels/${params.id}`),
+                element: <PrivateRoutes><Payment></Payment> </PrivateRoutes>
             }
         ]
     }

@@ -9,45 +9,49 @@ import axios from 'axios';
 const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {createUser, signInUser, signInGoogle, profileUpdate} = useAuth();
+    const { createUser, signInUser, signInGoogle, profileUpdate } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
-    console.log('Location from Register ', location);
 
     const submitHandler = (data) => {
         const email = data.email;
         const password = data.password;
         const photo = data.photo[0];
         const name = data.name;
-        console.log(email,password,photo);
-        
-        createUser(email,password)
+        console.log(email, password, photo);
+
+        createUserWithEmailAndPassword(auth, email, password)
             .then(res => {
                 console.log(res.user);
 
                 // store photo url  VITE_image_host_key
                 const formData = new FormData();
-                formData.append(photo);
+                formData.append("image", photo); // 🔥 FIXED
+
                 const imageAPIURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
-                axios.post(imageAPIURL,formData)
+
+                axios.post(imageAPIURL, formData)
                     .then(result => {
-                        console.log(  'after image upload...',result.data,data.url);
+                        console.log('after image upload...', result.data);
+
+                        // 🔥 FIXED: Use result instead of res
                         const profile = {
-                            photoURL : res.data.data.url,
+                            photoURL: result.data.data.url,
                             displayName: name
-                        }
+                        };
+
                         profileUpdate(profile)
-                            .then(() =>{
+                            .then(() => {
                                 console.log('Profile updated successfully');
                                 navigate(location?.state || '/');
                             })
-                            .catch(err => console.log(err))
+                            .catch(err => console.log(err));
                     })
                     .catch(err => console.log(err));
             })
             .catch(err => {
                 console.log(err);
-            })
+            });
     }
 
     const handleGoogleLogin = () => {
@@ -67,7 +71,7 @@ const Register = () => {
             <p className='text-sm opacity-80 mb-4'>Register with zapShift</p>
             <form onSubmit={handleSubmit(submitHandler)} className='bg-white'>
                 <fieldset className="fieldset w-full">
-                    
+
                     {/* Name  */}
                     <label className="label font-bold">Name</label>
                     <input type="text" {...register("name", { required: true })} className="input bg-white w-full" placeholder="Name" />
@@ -76,7 +80,7 @@ const Register = () => {
                     }
                     {/* Photo  */}
                     <label className="label font-bold">Photo</label>
-                    <input {...register('photo', {required: true})} type="file" className="file-input file-input-md w-full bg-white" />
+                    <input {...register('photo', { required: true })} type="file" className="file-input file-input-md w-full bg-white" />
                     {
                         errors.photo?.type === 'required' && <p className='text-[12px] text-red-500'>Photo must needed.</p>
                     }

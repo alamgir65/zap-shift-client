@@ -24,6 +24,7 @@ const ParcelForm = () => {
 
 
     const submitHandler = (data) => {
+        data.sender_email = user?.email;
         console.log(data);
         const isSameDistrict = data.sender_district === data.receiver_district;
         const isDocument = data.parcel_type == 'document';
@@ -43,6 +44,8 @@ const ParcelForm = () => {
                 cost += extraCost;
             }
         }
+
+        data.cost = cost;
         
         Swal.fire({
             title: "Agree with the cost?",
@@ -60,9 +63,7 @@ const ParcelForm = () => {
                     icon: "success"
                 });
 
-                axiosSecure.post('/parcels',{
-                    data
-                })
+                axiosSecure.post('/parcels',data)
                     .then(res => {
                         console.log('after saving data in database ' ,res);
                     })
