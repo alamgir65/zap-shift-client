@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
@@ -9,11 +9,12 @@ const ParcelForm = () => {
     const data = useLoaderData();
     const { register, handleSubmit, control, formState: { errors } } = useForm();
     // const districts = data.map(d => d.district);
+    const navigate = useNavigate();
     const regions = [...new Set(data.map(d => d.region))];
     const sendertRegion = useWatch({ control, name: 'sender_region' });
     const receiverRegion = useWatch({ control, name: 'receiver_region' });
     const axiosSecure = useAxiosSecure();
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     const districtsByRegion = (region) => {
         const filteredData = data.filter(d => d.region === region);
@@ -46,7 +47,7 @@ const ParcelForm = () => {
         }
 
         data.cost = cost;
-        
+
         Swal.fire({
             title: "Agree with the cost?",
             text: `You have to pay ${cost} taka for this parcel!`,
@@ -54,18 +55,18 @@ const ParcelForm = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "I agree"
+            confirmButtonText: "Confirm & Continue to payment"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Success!",
-                    text: "Your parcel processing to deliver.",
-                    icon: "success"
-                });
-
-                axiosSecure.post('/parcels',data)
+                axiosSecure.post('/parcels', data)
                     .then(res => {
-                        console.log('after saving data in database ' ,res);
+                        console.log('after saving data in database ', res);
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Your parcel processing to deliver.",
+                            icon: "success"
+                        });
+                        navigate('/dashboard/my-parcels');
                     })
 
             }

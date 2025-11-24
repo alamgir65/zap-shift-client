@@ -55,6 +55,37 @@ const MyParcels = () => {
         });
     }
 
+    const paymentHandler = async (parcel) => {
+        try {
+            const paymentInfo = {
+                parcel_name: parcel.name,
+                percel_id: parcel._id,
+                cost: parcel.cost,
+                sender_email: parcel.sender_email
+            }
+            const res = await axiosSecure.post('/payment-checkout-session', paymentInfo);
+            console.log(res.data);
+
+            // Redirect to Stripe checkout
+            if (res.data.url) {
+                window.location.assign(res.data.url);
+            }
+        } catch (error) {
+            console.error('Payment error:', error);
+        }
+    }
+    // const paymentHandler2 = async (parcel) => {
+    //     const paymentInfo = {
+    //         name: parcel.name,
+    //         sender_email: parcel.sender_email,
+    //         sender_id: parcel._id,
+    //         cost: parcel.cost
+    //     }
+    //     const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
+    //     console.log(res.data);
+    //     window.location.href = res.data.url;
+    // }
+
     return (
         <div className='p-10'>
             <h2>All of my parcels : {parcels.length}</h2>
@@ -79,10 +110,10 @@ const MyParcels = () => {
                                 <td>100</td>
                                 <td>
                                     {
-                                        parcel.payment_status === 'Paid' ? <>
+                                        parcel.payment_status === 'paid' ? <>
                                             <button className="btn btn-primary btn-sm">Paid</button>
                                         </> : <>
-                                            <Link to={`/dashboard/payment/${parcel._id}`} className='btn btn-sm bg-primary'>Pay</Link>
+                                            <button onClick={() => paymentHandler(parcel)} className='btn btn-sm bg-primary'>Pay</button>
                                         </>
                                     }
                                 </td>
