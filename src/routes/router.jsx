@@ -21,6 +21,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import Payment from "../pages/dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/dashboard/Payment/PaymentSuccess";
 import PaymentCancelled from "../pages/dashboard/Payment/PaymentCancelled";
+import PaymentHistory from "../pages/dashboard/payment-history/PaymentHistory";
 
 
 export const router = createBrowserRouter([
@@ -95,7 +96,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        Component: DashboardLayouts,
+        element: <PrivateRoutes><DashboardLayouts></DashboardLayouts> </PrivateRoutes> ,
         children: [
             {
                 path: 'my-parcels',
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
                 path: 'payment/:id',
                 loader: ({params}) => fetch(`http://localhost:3000/parcels/${params.id}`),
                 element: <PrivateRoutes><Payment></Payment> </PrivateRoutes>
+            },
+            {
+                path: 'payment-history',
+                Component: PaymentHistory
             },
             {
                 path: 'payment-success',

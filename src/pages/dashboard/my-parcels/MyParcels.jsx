@@ -87,7 +87,7 @@ const MyParcels = () => {
     // }
 
     return (
-        <div className='p-10'>
+        <div className=''>
             <h2>All of my parcels : {parcels.length}</h2>
             <div className="overflow-x-auto p-3 bg-white rounded-lg">
                 <table className="table table-zebra">
@@ -107,7 +107,7 @@ const MyParcels = () => {
                             parcels.map((parcel, index) => <tr>
                                 <th>{index}</th>
                                 <td>{parcel.name}</td>
-                                <td>100</td>
+                                <td>{parcel.cost}</td>
                                 <td>
                                     {
                                         parcel.payment_status === 'paid' ? <>
