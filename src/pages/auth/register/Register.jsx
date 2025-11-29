@@ -5,6 +5,7 @@ import useAuth from '../../../hooks/useAuth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase/firebase.init';
 import axios from 'axios';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Register = () => {
 
@@ -12,6 +13,7 @@ const Register = () => {
     const { createUser, signInUser, signInGoogle, profileUpdate } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     const submitHandler = (data) => {
         const email = data.email;
@@ -34,9 +36,23 @@ const Register = () => {
                     .then(result => {
                         console.log('after image upload...', result.data);
 
+                        // add user to the database
+                        const photoUrl = result.data.data.url;
+                        const userInfo = {
+                            email: data.email,
+                            name: data.name,
+                            photoURL: photoUrl
+                        }
+                        axiosSecure.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('User added to the database');
+                                }
+                            })
+
                         // 🔥 FIXED: Use result instead of res
                         const profile = {
-                            photoURL: result.data.data.url,
+                            photoURL: photoUrl,
                             displayName: name
                         };
 
@@ -58,7 +74,18 @@ const Register = () => {
         signInGoogle()
             .then(res => {
                 console.log(res.user);
-                navigate(location?.state || '/');
+                const userInfo = {
+                    email: res.user.email,
+                    name: res.user.displayName,
+                    photoURL: res.user.photoURL
+                }
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            console.log('User added to the database');
+                        }
+                         navigate(location?.state || '/');
+                    })
             })
             .catch(err => {
                 console.log(err);
