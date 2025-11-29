@@ -1,15 +1,32 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { use } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import img from '../../assets/agent-pending.png'
+import useAuth from '../../hooks/useAuth';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+
+const regionstPromise = fetch('/division.json').then(res => res.json());
 
 const RiderForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit,control, formState: { errors } } = useForm();
     const data = useLoaderData();
     const districts = data.map(d => d.district);
-
+    const regions = use(regionstPromise);
+    const region = useWatch({control, name: 'region'});
+    const {user} = useAuth();
+    const axiosSecure = useAxiosSecure();
+    // console.log(regions);
     const submitHandler = (data) => {
         console.log(data);
+        axiosSecure.post('/riders', data)
+            .then(res => {
+                if(res.data.insertedId){
+                    console.log('Rider data added to the database');
+                }
+            })
+    }
+    const districtsByRegion = (region) => {
+        return data.filter(d => d.region === region).map(d => d.district);
     }
     return (
         <>
@@ -27,7 +44,7 @@ const RiderForm = () => {
                                     <div className='flex-1'>
                                         {/* Name  */}
                                         <label className="label font-bold">Your Name</label>
-                                        <input type="text" {...register("name", { required: true })} className="input bg-white w-full" placeholder="Your Name" />
+                                        <input type="text" defaultValue={user?.displayName} {...register("name", { required: true })} className="input bg-white w-full" placeholder="Your Name" />
                                         {
                                             errors.name?.type === 'required' && <p className='text-[12px] text-red-500'>Name must needed.</p>
                                         }
@@ -46,10 +63,33 @@ const RiderForm = () => {
                                     <div className='flex-1'>
                                         {/* Email  */}
                                         <label className="label font-bold">Email</label>
-                                        <input type="email" {...register("email", { required: true })} className="input bg-white w-full" placeholder="Email" />
+                                        <input type="email" defaultValue={user?.email} {...register("email", { required: true })} className="input bg-white w-full" placeholder="Email" />
                                         {
                                             errors.email?.type === 'required' && <p className='text-[12px] text-red-500'>Email must needed.</p>
                                         }
+                                    </div>
+                                    <div className='flex-1'>
+                                        {/* Email  */}
+                                        <label className="label font-bold">Driving License</label>
+                                        <input type="text" {...register("driving_license", { required: true })} className="input bg-white w-full" placeholder="Driving License" />
+                                        {
+                                            errors.driving_license?.type === 'required' && <p className='text-[12px] text-red-500'>License Number must needed.</p>
+                                        }
+                                    </div>
+
+                                </div>
+
+                                <div className='flex gap-4'>
+                                    <div className='flex-1'>
+                                        {/* District  */}
+                                        <label className="label font-bold">Select Region</label>
+
+                                        <select type="text" {...register("region", { required: true })} className="input bg-white w-full" placeholder="Division">
+                                            <option className='opacity-70'>Select Region</option>
+                                            {
+                                                regions.map((region, index) => <option value={region} key={index}>{region}</option>)
+                                            }
+                                        </select>
                                     </div>
                                     <div className='flex-1'>
                                         {/* District  */}
@@ -58,7 +98,7 @@ const RiderForm = () => {
                                         <select type="text" {...register("district", { required: true })} className="input bg-white w-full" placeholder="District">
                                             <option className='opacity-70'>Select District</option>
                                             {
-                                                districts.map((district, index) => <option key={index}>{district}</option>)
+                                                districtsByRegion(region).map((district, index) => <option key={index}>{district}</option>)
                                             }
                                         </select>
                                     </div>
@@ -68,7 +108,7 @@ const RiderForm = () => {
                                     <div className='flex-1'>
                                         {/* NID  */}
                                         <label className="label font-bold">NID</label>
-                                        <input type="email" {...register("nid", { required: true })} className="input bg-white w-full" placeholder="NID no" />
+                                        <input type="number" {...register("nid", { required: true })} className="input bg-white w-full" placeholder="NID no" />
                                         {
                                             errors.nid?.type === 'required' && <p className='text-[12px] text-red-500'>NID number must needed.</p>
                                         }

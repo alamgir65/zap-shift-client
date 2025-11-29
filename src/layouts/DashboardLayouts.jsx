@@ -9,7 +9,7 @@ import { HiMiniTruck } from "react-icons/hi2";
 import { HiMiniTag } from "react-icons/hi2";
 import { LiaStoreSolid } from "react-icons/lia";
 import { PiMapPinAreaBold } from "react-icons/pi";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RiEBike2Line, RiLockPasswordLine } from "react-icons/ri";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
 import { CgDetailsMore } from "react-icons/cg";
@@ -80,6 +80,15 @@ const DashboardLayouts = () => {
                                 <span className="is-drawer-close:hidden">My Parcels</span>
                             </NavLink>
                         </li>
+                        
+                        <li>
+                            <NavLink to={'/dashboard/approve-riders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
+                                {/* Home icon */}
+                                <RiEBike2Line/>
+                                <span className="is-drawer-close:hidden">Approve Riders</span>
+                            </NavLink>
+                        </li>
+
                         <li>
                             <NavLink to={'/dashboard/payment-history'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
                                 {/* Home icon */}
