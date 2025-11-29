@@ -15,6 +15,7 @@ const Navbar = () => {
         <li><NavLink to={'/price-calculator'}>Pricing</NavLink> </li>
         <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink> </li>
         <li><NavLink to={'/send-parcel'}>Send Parcel</NavLink> </li>
+        <li><NavLink to={'/dashboard'}>Dashboard</NavLink> </li>
     </>
 
     const logoutHandler = () => {

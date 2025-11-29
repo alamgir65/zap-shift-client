@@ -15,9 +15,12 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { CgDetailsMore } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import './DashboardLayouts.css';
+import { FaUser } from 'react-icons/fa';
+import useRole from '../hooks/useRole';
 
 
 const DashboardLayouts = () => {
+    const { role } = useRole();
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -26,11 +29,11 @@ const DashboardLayouts = () => {
                 <nav className="navbar w-full bg-white">
                     <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
                         {/* Sidebar toggle icon */}
-                        <CgDetailsMore/>
+                        <CgDetailsMore />
                     </label>
                     <div className="px-4">Navbar Title</div>
                     <div className='navbar-end flex items-center gap-2'>
-                        <div className='p-3 bg-base-300 rounded-[50%]'><IoMdNotificationsOutline/></div>
+                        <div className='p-3 bg-base-300 rounded-[50%]'><IoMdNotificationsOutline /></div>
                         <div className=''> <img className='w-10 bg-base-300 rounded-[50%]' src={profile} alt="" /> </div>
                         <div>
                             <h6 className='text-base'>Alamgir Hossain</h6>
@@ -80,14 +83,26 @@ const DashboardLayouts = () => {
                                 <span className="is-drawer-close:hidden">My Parcels</span>
                             </NavLink>
                         </li>
-                        
-                        <li>
-                            <NavLink to={'/dashboard/approve-riders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
-                                {/* Home icon */}
-                                <RiEBike2Line/>
-                                <span className="is-drawer-close:hidden">Approve Riders</span>
-                            </NavLink>
-                        </li>
+
+                        {
+                            role === 'admin' && <>
+                                <li>
+                                    <NavLink to={'/dashboard/approve-riders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
+                                        {/* Home icon */}
+                                        <RiEBike2Line />
+                                        <span className="is-drawer-close:hidden">Approve Riders</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={'/dashboard/users-management'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management">
+                                        {/* Home icon */}
+                                        <FaUser />
+                                        <span className="is-drawer-close:hidden">Users Management</span>
+                                    </NavLink>
+                                </li>
+
+                            </>
+                        }
 
                         <li>
                             <NavLink to={'/dashboard/payment-history'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
