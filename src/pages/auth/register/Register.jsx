@@ -121,7 +121,7 @@ const Register = () => {
 
                     {/* Password  */}
                     <label className="label font-bold">Password</label>
-                    <input type="password" {...register("password", { required: true, minLength: 6, pattern: /^[A-Za-z]+$/i })} className="input bg-white w-full" placeholder="Password" />
+                    <input type="password" {...register("password", { required: true, minLength: 6 })} className="input bg-white w-full" placeholder="Password" />
                     {
                         errors.password?.type === 'minLength' && <p className='text-[12px] text-red-500'>Password must min 6 length.</p>
                     }
