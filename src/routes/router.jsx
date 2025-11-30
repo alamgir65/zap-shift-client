@@ -24,6 +24,7 @@ import PaymentCancelled from "../pages/dashboard/Payment/PaymentCancelled";
 import PaymentHistory from "../pages/dashboard/payment-history/PaymentHistory";
 import ApproveRiders from "../pages/dashboard/approve-riders/ApproveRiders";
 import UsersManagement from "../pages/dashboard/user-management/UsersManagement";
+import AdminRoutes from "./AdminRoutes";
 
 
 export const router = createBrowserRouter([
@@ -115,7 +116,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'approve-riders',
-                Component: ApproveRiders
+                element: <AdminRoutes><ApproveRiders></ApproveRiders> </AdminRoutes>
             },
             {
                 path: 'payment-success',
@@ -128,7 +129,7 @@ export const router = createBrowserRouter([
             {
                 path: 'users-management',
                 loader: () => fetch('http://localhost:3000/users'),
-                Component: UsersManagement
+                element: <AdminRoutes><UsersManagement></UsersManagement> </AdminRoutes>
             }
         ]
     }

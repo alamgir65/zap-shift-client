@@ -74,6 +74,8 @@ const MyParcels = () => {
             console.error('Payment error:', error);
         }
     }
+
+    
     // const paymentHandler2 = async (parcel) => {
     //     const paymentInfo = {
     //         name: parcel.name,
