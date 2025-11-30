@@ -54,7 +54,8 @@ const ApproveRiders = () => {
                             <th></th>
                             <th>Name</th>
                             <th>NID</th>
-                            <th>Status</th>
+                            <th>Application Status</th>
+                            <th>Work Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -68,12 +69,11 @@ const ApproveRiders = () => {
                                 <td>
                                     {
                                         <p className={`${rider.status === 'pending' ? 'text-warning': rider.status==='approved'? 'text-green-600': 'text-red-500'}`}>{rider.status}</p>
-                                        // rider.status === 'pending' ? <>
-                                        //     <button className="btn btn-primary text-black btn-sm">Pending</button>
-                                        // </> : <>
-                                        //     <button className='btn btn-sm bg-green-500'>Approved</button>
-                                        // </>
+                                        
                                     }
+                                </td>
+                                <td>
+                                    {rider.work_status}
                                 </td>
                                 <td className='flex gap-2'>
                                     <button

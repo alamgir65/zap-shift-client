@@ -19,6 +19,7 @@ const PaymentSuccess = () => {
             });
         }
     },[session_id,axiosSecure])
+    console.log(paymentInfo)
     return (
         <div>
             <h1>Your payment successful</h1>

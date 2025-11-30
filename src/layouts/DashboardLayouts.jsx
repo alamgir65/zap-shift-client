@@ -17,6 +17,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import './DashboardLayouts.css';
 import { FaUser } from 'react-icons/fa';
 import useRole from '../hooks/useRole';
+import { MdAssignmentAdd } from "react-icons/md";
 
 
 const DashboardLayouts = () => {
@@ -92,6 +93,13 @@ const DashboardLayouts = () => {
                                         {/* Home icon */}
                                         <RiEBike2Line />
                                         <span className="is-drawer-close:hidden">Approve Riders</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={'/dashboard/assign-riders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign Riders">
+                                        {/* Home icon */}
+                                        <MdAssignmentAdd />
+                                        <span className="is-drawer-close:hidden">Assign Riders</span>
                                     </NavLink>
                                 </li>
                                 <li>

@@ -75,7 +75,7 @@ const MyParcels = () => {
         }
     }
 
-    
+
     // const paymentHandler2 = async (parcel) => {
     //     const paymentInfo = {
     //         name: parcel.name,
@@ -100,6 +100,7 @@ const MyParcels = () => {
                             <th>Name</th>
                             <th>Cost</th>
                             <th>Payment Status</th>
+                            <th>Delivery Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -118,6 +119,9 @@ const MyParcels = () => {
                                             <button onClick={() => paymentHandler(parcel)} className='btn btn-sm bg-primary'>Pay</button>
                                         </>
                                     }
+                                </td>
+                                <td>
+                                    {parcel.delivery_status}
                                 </td>
                                 <td className='flex gap-2'>
                                     <button className='btn hover:bg-primary'>
