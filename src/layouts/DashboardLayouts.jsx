@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet } from 'react-router';
 import Logo from '../components/logo/Logo';
 import profile from '../assets/profile.jpg';
 import { RxDashboard } from "react-icons/rx";
-import { CiDeliveryTruck } from "react-icons/ci";
+import { CiDeliveryTruck, CiGrid42 } from "react-icons/ci";
 import { CiShop } from "react-icons/ci";
 import { HiMiniTruck } from "react-icons/hi2";
 import { HiMiniTag } from "react-icons/hi2";
@@ -85,7 +85,21 @@ const DashboardLayouts = () => {
                                 <span className="is-drawer-close:hidden">My Parcels</span>
                             </NavLink>
                         </li>
+                        {/* riders links only  */}
 
+                        {
+                            role === 'rider' && <>
+                                <li>
+                                    <NavLink to={'/dashboard/assigned-deliveries'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assigned Deliveries">
+                                        {/* Home icon */}
+                                        <CiGrid42/>
+                                        <span className="is-drawer-close:hidden">Assigned Deliveries</span>
+                                    </NavLink>
+                                </li>
+                            </>
+                        }
+                        
+                        {/* admin route only  */}
                         {
                             role === 'admin' && <>
                                 <li>
