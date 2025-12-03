@@ -11,7 +11,7 @@ import { LiaStoreSolid } from "react-icons/lia";
 import { PiMapPinAreaBold } from "react-icons/pi";
 import { RiEBike2Line, RiLockPasswordLine } from "react-icons/ri";
 import { IoIosHelpCircleOutline } from "react-icons/io";
-import { IoLogOutOutline } from "react-icons/io5";
+import { IoCheckmarkDoneCircleOutline, IoLogOutOutline } from "react-icons/io5";
 import { CgDetailsMore } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import './DashboardLayouts.css';
@@ -94,6 +94,13 @@ const DashboardLayouts = () => {
                                         {/* Home icon */}
                                         <CiGrid42/>
                                         <span className="is-drawer-close:hidden">Assigned Deliveries</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={'/dashboard/completed-deliveries'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Completed Deliveries">
+                                        {/* Home icon */}
+                                        <IoCheckmarkDoneCircleOutline />
+                                        <span className="is-drawer-close:hidden">Completed Deliveries</span>
                                     </NavLink>
                                 </li>
                             </>

@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../firebase/firebase.init';
 
 const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {signInUser, signInGoogle} = useAuth();
+    const { signInUser, signInGoogle } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
@@ -15,14 +17,16 @@ const Login = () => {
     const submitHandler = (data) => {
         const email = data.email;
         const password = data.password;
-        
-        signInUser(email,password)
+
+        console.log('login btn');
+
+        signInWithEmailAndPassword(auth, email, password)
             .then(res => {
                 console.log(res.user);
                 console.log('login done');
                 navigate(location?.state || '/');
             })
-            .then(err => {
+            .catch(err => {
                 console.log(err);
             })
     }
@@ -41,7 +45,7 @@ const Login = () => {
                         if (res.data.insertedId) {
                             console.log('User added to the database');
                         }
-                         navigate(location?.state || '/');
+                        navigate(location?.state || '/');
                     })
                 navigate(location?.state || '/');
             })
@@ -64,7 +68,7 @@ const Login = () => {
                     }
                     {/* Password  */}
                     <label className="label font-bold">Password</label>
-                    <input type="password" {...register("password", { required: true, minLength: 6, pattern: /^[A-Za-z]+$/i })} className="input bg-white w-full" placeholder="Password" />
+                    <input type="password" {...register("password", { required: true, minLength: 6})} className="input bg-white w-full" placeholder="Password" />
                     {
                         errors.password?.type === 'required' && <p className='text-[12px] text-red-500'>Password must min 6 length.</p>
                     }
