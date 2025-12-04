@@ -72,6 +72,7 @@ const ParcelForm = () => {
             }
         });
     }
+    console.log(user);
     return (
         <>
             <section className='bg-white m-4 sm:m-10 p-5 sm:p-15 rounded-2xl'>
@@ -131,7 +132,7 @@ const ParcelForm = () => {
                                 <div className='flex-1'>
                                     {/*Sender Name  */}
                                     <label className="label font-bold">Sender Name</label>
-                                    <input type="text" {...register("sender_name", { required: true })} className="input bg-white w-full" placeholder="Sender Name" />
+                                    <input type="text" defaultValue={user?.displayName} {...register("sender_name", { required: true })} className="input bg-white w-full" placeholder="Sender Name" />
                                 </div>
                                 <div className='flex-1'>
                                     {/* Reciever Name  */}

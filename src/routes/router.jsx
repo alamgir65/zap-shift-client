@@ -29,6 +29,7 @@ import AssignRiders from "../pages/dashboard/AssignRediers/AssignRiders";
 import AssignedDeliveries from "../pages/dashboard/AssignedDeliveries/AssignedDeliveries";
 import RiderRoute from "./RiderRoute";
 import CompletedDeliveries from "../pages/rider/Completed-deliveries/CompletedDeliveries";
+import TrackingParcel from "../pages/tracking/TrackingParcel";
 
 
 export const router = createBrowserRouter([
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
             {
                 path: 'price-calculator',
                 element: <PriceCalculator></PriceCalculator>
+            },
+            {
+                path: 'parcel-tracking/:tracking_id',
+                element: <TrackingParcel></TrackingParcel>
             },
             {
                 path: 'about',

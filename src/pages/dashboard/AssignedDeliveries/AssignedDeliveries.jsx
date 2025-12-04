@@ -20,7 +20,8 @@ const AssignedDeliveries = () => {
 
     const handleUpdateDeliveryStatus = (parcel, status) => {
         const updateInfo = {
-            delivery_status: status
+            delivery_status: status,
+            tracking_id: parcel.tracking_id
         };
 
         Swal.fire({

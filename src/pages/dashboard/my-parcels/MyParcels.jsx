@@ -61,7 +61,8 @@ const MyParcels = () => {
                 parcel_name: parcel.name,
                 percel_id: parcel._id,
                 cost: parcel.cost,
-                sender_email: parcel.sender_email
+                sender_email: parcel.sender_email,
+                tracking_id: parcel.tracking_id
             }
             const res = await axiosSecure.post('/payment-checkout-session', paymentInfo);
             console.log(res.data);
@@ -98,6 +99,7 @@ const MyParcels = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
+                            <th>Tracking Id</th>
                             <th>Cost</th>
                             <th>Payment Status</th>
                             <th>Delivery Status</th>
@@ -110,11 +112,14 @@ const MyParcels = () => {
                             parcels.map((parcel, index) => <tr>
                                 <th>{index}</th>
                                 <td>{parcel.name}</td>
+                                <td>
+                                    <Link to={`/parcel-tracking/${parcel.tracking_id}`}>{parcel.tracking_id}</Link>
+                                </td>
                                 <td>{parcel.cost}</td>
                                 <td>
                                     {
                                         parcel.payment_status === 'paid' ? <>
-                                            <button className="btn btn-primary btn-sm">Paid</button>
+                                            <button className="btn btn-primary text-black btn-sm btn-disabled">Paid</button>
                                         </> : <>
                                             <button onClick={() => paymentHandler(parcel)} className='btn btn-sm bg-primary'>Pay</button>
                                         </>
