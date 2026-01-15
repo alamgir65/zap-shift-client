@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../../../components/logo/Logo';
 import { Link, NavLink } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import './Navbar.css';
 
 const Navbar = () => {
     
@@ -9,7 +10,7 @@ const Navbar = () => {
 
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink> </li>
-        <li><NavLink to={'/'}>Services</NavLink> </li>
+        <li><NavLink to={'/services'}>Services</NavLink> </li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink> </li>
         <li><NavLink to={'/about'}>About Us</NavLink> </li>
         <li><NavLink to={'/price-calculator'}>Pricing</NavLink> </li>
@@ -44,16 +45,17 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal gap-2 px-1">
                     {links}
                 </ul>
             </div>
             <div className="navbar-end">
                 {
                     user? <>
-                        <NavLink onClick={logoutHandler} className={'btn'}>Logout</NavLink>
+                        <NavLink onClick={logoutHandler} className={'btn nav-button'}>Logout</NavLink>
                     </> : <>
-                        <NavLink to={'/login'} className={'btn'}>Login</NavLink>
+                        <NavLink to={'/login'} className={'btn nav-button mr-3'}>Sign In</NavLink>
+                        <NavLink to={'/register'} className={'btn nav-button'}>Sign Up</NavLink>
                     </>
                 }
             </div>

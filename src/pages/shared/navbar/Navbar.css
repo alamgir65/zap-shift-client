@@ -1,0 +1,10 @@
+.nav-button:active, .nav-button:hover{
+    background-color: #bbdd54;
+    border: none;
+}
+
+.menu-horizontal > li > a.active , .menu-horizontal > li > a:hover{
+    background-color: #bbdd54;
+    color: black;
+    border: none;
+}
