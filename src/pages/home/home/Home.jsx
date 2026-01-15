@@ -6,6 +6,7 @@ import Brands from '../brands/Brands';
 import Features from '../features/Features';
 import CustomerSatisfaction from '../customer-satisfaction/CustomerSatisfaction';
 import Reviews from '../reviews/Reviews';
+import StaticBanner from '../static_banner/StaticBanner';
 
 
 const reviewPromise = fetch('/reviews.json').then(res => res.json());
@@ -14,7 +15,8 @@ const Home = () => {
     return (
         <div className='my-10'>
     
-            <Banner></Banner>
+            {/* <Banner></Banner> */}
+            <StaticBanner></StaticBanner>
             <HowItWorks></HowItWorks>
             <section>
                 <Services></Services>
