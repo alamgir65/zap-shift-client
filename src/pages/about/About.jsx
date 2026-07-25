@@ -4,10 +4,10 @@ import './About.css'
 
 const About = () => {
     const links = <>
-            <li><NavLink to={'/about'} className={'text-lg font-semibold bg-none hover:text-primary active:text-primary'}>Story</NavLink> </li>
-            <li><NavLink to={'/about/mission'} className={'text-lg font-semibold bg-none hover:text-primary active:text-primary'}>Misson</NavLink> </li>
-            <li><NavLink to={'/about/success'} className={'text-lg font-semibold bg-none hover:text-primary active:text-primary'}>Success</NavLink> </li>
-            <li><NavLink to={'/about/teams-others'} className={'text-lg font-semibold bg-none hover:text-primary active:text-primary'}>Teams & Other's</NavLink> </li>
+            <li><NavLink to={'/about'} className={'text-lg font-semibold px-3 py-2 rounded-md'}>Story</NavLink> </li>
+            <li><NavLink to={'/about/mission'} className={'text-lg font-semibold px-3 py-2 rounded-md'}>Misson</NavLink> </li>
+            <li><NavLink to={'/about/success'} className={'text-lg font-semibold px-3 py-2 rounded-md'}>Success</NavLink> </li>
+            <li><NavLink to={'/about/teams-others'} className={'text-lg font-semibold px-3 py-2 rounded-md'}>Teams & Other's</NavLink> </li>
         </>
     return (
         <section className='bg-white m-4 sm:m-10 p-5 sm:p-15 rounded-2xl'>

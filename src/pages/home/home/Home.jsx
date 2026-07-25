@@ -15,8 +15,8 @@ const Home = () => {
     return (
         <div className='my-10'>
     
-            {/* <Banner></Banner> */}
-            <StaticBanner></StaticBanner>
+            <Banner></Banner>
+            {/* <StaticBanner></StaticBanner> */}
             <HowItWorks></HowItWorks>
             <section>
                 <Services></Services>

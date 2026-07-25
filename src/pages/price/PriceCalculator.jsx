@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { use } from 'react';
 import { useForm } from 'react-hook-form';
+
+const dataResponse = fetch('/branches.json').then(res => res.json());
 
 const PriceCalculator = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const districts = use(dataResponse).map(b => b.district);
+    // console.log(districts);
+
     const submitHandler = (data) => {
-        console.log(data);
+        const isSameDistrict = data.sender_district === data.receiver_district;
+        const isDocument = data.parcel_type == 'document';
+        const weight = parseFloat(data.weight);
+
+        let cost = 0;
+        if (isDocument) {
+            cost = isSameDistrict ? 60 : 80;
+        }
+        else {
+            if (weight <= 3) {
+                cost = isSameDistrict ? 110 : 150;
+            }
+            else {
+                cost = isSameDistrict ? 110 : 150;
+                const extraCost = (weight - 3) * 40 + (isSameDistrict ? 0 : 40);
+                cost += extraCost;
+            }
+        }
+        console.log('Total Cost:', cost);
+        document.getElementById('total_cost').innerText = cost;
     }
     return (
         <section className='bg-white m-4 sm:m-10 p-5 sm:p-15 rounded-2xl'>
@@ -28,12 +52,22 @@ const PriceCalculator = () => {
                             </select>
 
                             {/* District  */}
+                            <label className="label font-bold">Delivary From</label>
+
+                            <select type="text" {...register("sender_district", { required: true })} className="input bg-white w-full" placeholder="Sender District">
+                                <option className='opacity-70'>Select District</option>
+                                {
+                                    districts.map((district, index) => <option key={index}>{district}</option>)
+                                }
+                            </select>
+
+                            {/* District  */}
                             <label className="label font-bold">Delivary Destination</label>
 
-                            <select type="text" {...register("district", { required: true })} className="input bg-white w-full" placeholder="District">
+                            <select type="text" {...register("receiver_district", { required: true })} className="input bg-white w-full" placeholder="Reciever District">
                                 <option className='opacity-70'>Select Destination</option>
                                 {
-                                    // districts.map((district, index) => <option key={index}>{district}</option>)
+                                    districts.map((district, index) => <option key={index}>{district}</option>)
                                 }
                             </select>
 
@@ -52,7 +86,7 @@ const PriceCalculator = () => {
                     </form>
                 </div>
                 <div className='flex justify-center items-start'>
-                    <h1 className='text-5xl font-bold text-secondary'>50 tk</h1>
+                    <h1 className='text-5xl font-bold text-secondary'> <span id="total_cost">0</span> tk</h1>
                 </div>
             </div>
         </section>

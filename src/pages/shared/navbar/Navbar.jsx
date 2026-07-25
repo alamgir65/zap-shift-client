@@ -9,7 +9,6 @@ const Navbar = () => {
     const {logout, user} = useAuth();
 
     const links = <>
-        <li><NavLink to={'/'}>Home</NavLink> </li>
         <li><NavLink to={'/services'}>Services</NavLink> </li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink> </li>
         <li><NavLink to={'/about'}>About Us</NavLink> </li>

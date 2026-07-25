@@ -13,3 +13,8 @@
     text-align: start;
     margin-bottom: 10px;
 }
+.banner-rider-btn:hover{
+    background-color: #bbdd54;
+    border: none;
+    color: black;
+}

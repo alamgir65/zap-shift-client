@@ -6,12 +6,12 @@ import './StaticBanner.css';
 
 const StaticBanner = () => {
     return (
-        <div className='bg-white px-7 sm:px-15 py-6 sm:py-11 rounded-xl flex flex-row-reverse sm:flex-row gap-4 sm:gap-8'>
+        <div className='bg-white px-7 sm:px-15 py-6 sm:py-11 rounded-xl flex flex-col-reverse sm:flex-row gap-4 sm:gap-8'>
             <div className='flex-1'>
                 <div>
                     <img src={tiny} alt="" />
                 </div>
-                <h1 className='text-6xl font-bold text-secondary py-4'>
+                <h1 className='text-4xl sm:text-6xl font-bold text-secondary py-4'>
                     We Make Sure Your <span className='text-[#33929d]'>Parcel Arrives</span> On Time - No Fuss.
                 </h1>
                 <p className='text-base font-light mb-4'>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>
@@ -22,8 +22,8 @@ const StaticBanner = () => {
                     <button className="banner-btn banner-rider-btn btn text-[14px] btn-outline bg-white">Be A Rider</button>
                 </div>
             </div>
-            <div className='flex-1 float-right'>
-                <img className='w-[70%] float-right' src={big} alt="" />
+            <div className='flex-1 float-none sm:float-right'>
+                <img className='w-[95%] sm:w-[70%] float-right' src={big} alt="" />
             </div>
         </div>
     );

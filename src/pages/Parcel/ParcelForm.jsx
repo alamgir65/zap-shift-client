@@ -120,7 +120,13 @@ const ParcelForm = () => {
                                 <div className='flex-1'>
                                     {/* Weight  */}
                                     <label className="label font-bold">Parcel Weight</label>
-                                    <input type="text" {...register("weight")} className="input bg-white w-full" placeholder="Parcel Weight" />
+                                    <input type="number" {...register("weight", { required: true, min: 0 })} className="input bg-white w-full" placeholder="Parcel Weight" />
+                                    {
+                                        errors.weight?.type === 'required' && <p className='text-[12px] text-red-500'>Parcel Weight is required.</p>
+                                    }
+                                    {
+                                        errors.weight?.type === 'min' && <p className='text-[12px] text-red-500'>Parcel Weight must be a positive number.</p>
+                                    }
                                 </div>
                             </div>
 

@@ -19,11 +19,10 @@ const Reviews = ({ reviewPromise }) => {
             <div className='my-15'>
                 <Swiper
                     loop={true}
-                    effect={'coverflow'}
+                    effect="coverflow"
                     grabCursor={true}
                     centeredSlides={true}
                     spaceBetween={30}
-                    slidesPerView={3}
                     coverflowEffect={{
                         rotate: 50,
                         stretch: 0,
@@ -31,23 +30,32 @@ const Reviews = ({ reviewPromise }) => {
                         modifier: 1,
                         scale: 0.9,
                         slideShadows: true,
-                        opacity: 20
                     }}
                     autoplay={{
-                        delay : 2000,
-                        disbleOnInteraction: false
+                        delay: 2000,
+                        disableOnInteraction: false,
                     }}
                     pagination={true}
                     modules={[EffectCoverflow, Pagination, Autoplay]}
                     className="mySwiper"
-                >
-                    {
-                        reviews.map(review_single => <SwiperSlide key={review_single.id}>
-                            <Review review_single={review_single}></Review>
-                        </SwiperSlide>
-                        )
-                    }
 
+                    breakpoints={{
+                        0: {
+                            slidesPerView: 1, // sm (mobile)
+                        },
+                        640: {
+                            slidesPerView: 2, // md (tablet)
+                        },
+                        1024: {
+                            slidesPerView: 3, // lg (desktop)
+                        },
+                    }}
+                >
+                    {reviews.map((review_single) => (
+                        <SwiperSlide key={review_single.id}>
+                            <Review review_single={review_single} />
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </div>
         </div>
