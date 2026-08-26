@@ -15,6 +15,9 @@ const Register = () => {
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
 
+    console.log(import.meta.env.VITE_image_host_key);
+
+
     const submitHandler = (data) => {
         const email = data.email;
         const password = data.password;
@@ -93,7 +96,7 @@ const Register = () => {
     }
 
     return (
-        <div className='w-[90%] sm:w-[70%]'>
+        <div className='w-[90%] sm:w-[70%] mb-2'>
             <h1 className='text-3xl font-extrabold'>Create an Account</h1>
             <p className='text-sm opacity-80 mb-4'>Register with zapShift</p>
             <form onSubmit={handleSubmit(submitHandler)} className='bg-white'>

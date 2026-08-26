@@ -7,13 +7,13 @@ const AuthLayouts = () => {
     return (
         <div className='max-w-7xl mx-auto bg-[#FFFFFF]'>
             <div className='flex flex-col sm:flex-row'>
-                <div className='flex-1 p-5 h-screen'>
+                <div className='flex-1 p-5'>
                     <div>
-                        <Link className='text-start' to={'/'}>
+                        <Link className='' to={'/'}>
                             <Logo></Logo>
                         </Link>
                     </div>
-                    <div className='flex items-start sm:items-center h-screen justify-center'>
+                    <div className='flex mt-4 items-start sm:items-center justify-center'>
                         <Outlet></Outlet>
                     </div>
                 </div>
