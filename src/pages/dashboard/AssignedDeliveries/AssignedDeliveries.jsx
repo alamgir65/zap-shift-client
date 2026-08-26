@@ -95,9 +95,10 @@ const AssignedDeliveries = () => {
                                 <td>
                                     <button
                                         onClick={() => handleUpdateDeliveryStatus(parcel, 'rider-picked-up')}
-                                        className={`btn bg-neutral text-white ${parcel.delivery_status === 'rider-picked-up' ? 'btn-disabled' : ''}`}
+                                        className={`btn bg-neutral text-white ${parcel.delivery_status === 'rider-picked-up' ? 'btn-disabled bg-warning' : ''}`}
                                         disabled={parcel.delivery_status === 'rider-picked-up'}>
-                                        Picked Up
+                                        {/* Picked Up */}
+                                        {parcel.delivery_status === 'rider-picked-up' ? 'Picked' : 'Picked Up'}
                                     </button>
                                     <button
                                         onClick={() => handleUpdateDeliveryStatus(parcel, 'delivered')}
